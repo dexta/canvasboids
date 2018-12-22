@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Boids Swarm</title>
+  <link rel="stylesheet" href="css/basicStyle.css">
+</head>
+
+<body onload="initRun()">
+
+<canvas id="gameCanvas"></canvas>
+<div id="menu">
+  <div>
+    <button id="debugButton" class="btn" onclick="toggleStart()">
+      on/off
+    </button>
+  </div>
+<!--   <div>
+    <button class="btn" onclick="testSetupStart()">
+      Ringz
+    </button>
+  </div>
+  <div>
+    <input id="numberOfBoids" class="inp" onchange="numberOfBoidsChanged()" type="number" value="8" min="2" max="128">
+  </div> -->
+  <div>
+    S-r:<input id="avoid_Range" class="inpran" onchange="changeRange(this);" 
+            type="range" min="30" max="100" value="40" title="change range for avoid action">
+  </div>
+  <div>
+    A-r:<input id="align_Range" class="inpran" onchange="changeRange(this);" 
+            type="range" min="35" max="120" value="70" title="change range for align action">
+  </div>
+  <div>
+    C-r:<input id="cohesion_Range" class="inpran" onchange="changeRange(this);" 
+            type="range" min="38" max="150" value="90" title="change range for cohesion action">
+  </div>
+
+  <div>
+    S-f:<input id="avoid_Fac" class="inpran" onchange="changeFac(this);" 
+            type="range" min="1" max="100" value="50" title="change range for avoid action">
+  </div>
+  <div>
+    A-f:<input id="align_Fac" class="inpran" onchange="changeFac(this);" 
+            type="range" min="1" max="100" value="50" title="change range for align action">
+  </div>
+  <div>
+    C-f:<input id="cohesion_Fac" class="inpran" onchange="changeFac(this);" 
+            type="range" min="1" max="100" value="50" title="change range for cohesion action">
+  </div>
+
+</div>
+<script src="js/initandmore.js"></script>
+<script src="js/canvasObject.js"></script>
+
+
+<script type="text/javascript">
+const toggleStart = () => {
+  START = (START||false)? false : true;
+  if(START) metaDraw();
+};
+
+const numberOfBoidsChanged = () => {
+  let newNumber = parseInt(document.querySelector("#numberOfBoids").value);
+  if(!newNumber||false) return;
+  if(newNumber<=1) {
+    document.querySelector("#numberOfBoids").value = 2;
+    newNumber = 2;
+  }
+  NUMBEROFBOIDZ = newNumber;
+  initRun();
+};
+
+const testSetupStart = () => {
+  START = false;
+  setTimeout(shortTest,500);
+};
+
+const avoidRangeChanged = () => {
+  let value = parseInt(document.querySelector('#avoidRange').value);
+  // changeRadius("avoid",value);
+}
+
+const changeRange = (e) => {
+  console.log(`from id ${e.id} with value ${e.value}`);
+  let uKeyVal = {k:'',v:parseInt(e.value)};
+  if(e.id==="avoid_Range") {
+    uKeyVal.k = "separationRadius";    
+  } else if(e.id==="align_Range") {
+    uKeyVal.k = "alignmentRadius";
+  } else if(e.id==="cohesion_Range") {
+    uKeyVal.k = "cohesionRadius";
+    UPDATEVOODOO.UPDATELIST.push({k:"viewRadius",v:uKeyVal.v+10});
+  }
+  UPDATEVOODOO.UPDATELIST.push(uKeyVal);
+};
+this.separationWeight = 1;
+    this.alignmentWeight = 1;
+    this.cohesionWeight = 1;
+
+const changeFac = (e) => {
+  console.log(`for Factor id ${e.id} with value ${e.value}`);
+  let uKeyVal = {k:'',v:parseInt(e.value)};
+  if(e.id==="avoid_Fac") {
+    uKeyVal.k = "separationWeight";    
+  } else if(e.id==="align_Fac") {
+    uKeyVal.k = "alignmentWeight";
+  } else if(e.id==="cohesion_Fac") {
+    uKeyVal.k = "cohesionWeight";
+  }
+  UPDATEVOODOO.UPDATELIST.push(uKeyVal);
+};
+
+</script>
+</body>
+</html>
