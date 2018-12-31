@@ -22,6 +22,7 @@
   },
   "homepage": "https://github.com/dexta/canvasringz#readme",
   "dependencies": {
-    "express": "^4.16.4"
+    "express": "^4.16.4",
+    "victor": "^1.1.0"
   }
 }

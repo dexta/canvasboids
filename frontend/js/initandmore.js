@@ -21,19 +21,12 @@ let UPDATEVOODOO = {
 };
 
 const initRun = () => {
-  console.table([
-      { group: 1, speed: 0.1, view: 23, angle: 42 },
-      { group: 2, speed: 0.01, view: 2, angle: 23 },
-      { group: 3, speed: 0.2, view: 3, angle: 12 },
-      { group: 4, speed: 0.03, view: 42, angle: 54 },
-      { group: 5, speed: 0.009, view: 64, angle: 4 },
-    ]);
-
   calcCanvas();
-  // MASTERBOID = new canvasVector(500,300,42,0.09);
+
   ALLBOIDZ = [];
   for(let i=0;i<=NUMBEROFBOIDZ;i++) {
-    ALLBOIDZ[i] = new canvasVector(Math.random()*WIDTH,Math.random()*HEIGHT,Math.random()*360,(Math.random()*0.02)+0.05);
+    // ALLBOIDZ[i] = new canvasVector(Math.random()*WIDTH, Math.random()*HEIGHT, Math.random()*360, (Math.random()*0.02)+0.05);
+    ALLBOIDZ[i] = new canvasBoid(Math.random()*WIDTH, Math.random()*HEIGHT, Math.random()*360);
   }
 
   metaDraw();
